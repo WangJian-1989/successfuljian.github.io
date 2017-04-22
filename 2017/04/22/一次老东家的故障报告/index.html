@@ -1,12 +1,8 @@
 
 
-  
 
 
 
-
-
-  
 
 
 <!doctype html>
@@ -20,9 +16,11 @@
   
   
   
-    <meta name="description" content="">
+    <meta name="description" content="最近在整理有道笔记的时候发现很有意思的东西,还是原来在老东家时候发生的故障，当时记载的故障报告。在这里拿出来与大家分享一下。
+老东家故障记录分析故障跟踪上线故障：2015-01-21
+上线功能：简历管理–老东家一年故障影响：主库负载达到40左右（1，5,15min），用户反映页面超时，不能修改页面上线时间：1.20号23:30上线的故障时间：1.21号9:10—-1.21号9:48，运维童鞋...">
   
-  <title>Archives: 2017 [ KEEP CLAM AND CARRY ON ]</title>
+  <title>一次老东家的故障报告 [ KEEP CLAM AND CARRY ON ]</title>
   
   
     <link rel="shortcut icon" href="/favicon.ico">
@@ -41,6 +39,15 @@
 <body>
 <div class="side-navigate hide-area">
   
+  
+    <div class="item next">
+      <a href="/2017/04/22/摔跤吧爸爸/">
+        <div class="item-icon"></div>
+      </a>
+      <div class="item-title">
+        摔跤吧！爸爸
+      </div>
+    </div>
   
 </div>
 <div id="outer-container" class="hide-area">
@@ -66,7 +73,7 @@
           </li>
         
           
-            <li class="active">
+            <li>
           
             <a href="/archives">文章</a>
             
@@ -112,175 +119,67 @@
     <div id="content-inner">
       
       
-  <article>
+  <article id="post">
+    <h1>一次老东家的故障报告</h1>
+    <p class="page-title-sub">
+      <span id = "post-title-date">Created at 2017-04-22</span>
+      
+        <span id = "post-title-updated">Updated at 2017-04-22</span>
+      
+      
+      
+    </p>
     
-
-  <div id="recent-posts">
-    <h1>Archives
-    
-      <span class="posts-count">
-      Total
-      5
-      
-        posts
-      
-      </span>
-    
-    </h1>
-    
-    
-      
-      
-        
-      
-      
-    
-      
-      
-      
-    
-      
-      
-      
-    
-      
-      
-      
-    
-      
-      
-      
-    
-    
-    
-      
-      
-        
-        <h3 class="archive-year-title">2017
-        
-          <span class="posts-count">
-          Total
-          5
-          
-            posts
-          
-          </span>
-        
-        </h3>
-      
-      <div class="post-title-item">
-  
-  <a href="/2017/04/22/一次老东家的故障报告/">
-  
-    一次老东家的故障报告
-  
-  </a>
-  <p class="page-title-sub">
-    <span id = "post-title-date">4-22</span>
-    
-    
-    
-      <br>
-      
-      
-    
-  </p>
-  
-</div>
-    
-      
-      
-      <div class="post-title-item">
-  
-  <a href="/2017/04/22/摔跤吧爸爸/">
-  
-    摔跤吧！爸爸
-  
-  </a>
-  <p class="page-title-sub">
-    <span id = "post-title-date">4-22</span>
-    
-    
-    
-      <br>
-      
-      
-    
-  </p>
-  
-</div>
-    
-      
-      
-      <div class="post-title-item">
-  
-  <a href="/2017/03/28/我也想成为很厉害的人/">
-  
-    我也想成为很厉害的人
-  
-  </a>
-  <p class="page-title-sub">
-    <span id = "post-title-date">3-28</span>
-    
-    
-    
-      <br>
-      
-      
-    
-  </p>
-  
-</div>
-    
-      
-      
-      <div class="post-title-item">
-  
-  <a href="/2017/03/04/LoveLetter/">
-  
-    Love Letter For Memory
-  
-  </a>
-  <p class="page-title-sub">
-    <span id = "post-title-date">3-4</span>
-    
-    
-    
-      <br>
-      
-      
-    
-  </p>
-  
-</div>
-    
-      
-      
-      <div class="post-title-item">
-  
-  <a href="/2017/03/03/hello-world/">
-  
-    Hello World
-  
-  </a>
-  <p class="page-title-sub">
-    <span id = "post-title-date">3-3</span>
-    
-    
-    
-      <br>
-      
-      
-    
-  </p>
-  
-</div>
-    
-  </div>
-
+    <p>最近在整理有道笔记的时候发现很有意思的东西,还是原来在老东家时候发生的故障，当时记载的故障报告。在这里拿出来与大家分享一下。</p>
+<h1 id="老东家故障记录分析"><a href="#老东家故障记录分析" class="headerlink" title="老东家故障记录分析"></a>老东家故障记录分析</h1><h2 id="故障跟踪"><a href="#故障跟踪" class="headerlink" title="故障跟踪"></a>故障跟踪</h2><h3 id="上线故障："><a href="#上线故障：" class="headerlink" title="上线故障："></a>上线故障：</h3><p>2015-01-21</p>
+<p>上线功能：简历管理–老东家一年<br>故障影响：主库负载达到40左右（1，5,15min），用户反映页面超时，不能修改页面<br>上线时间：1.20号23:30上线的<br>故障时间：1.21号9:10—-1.21号9:48，运维童鞋在去公司的路上</p>
+<p>故障排查：<br>1.查看zabbix mysqlio，insert和select语句操作（读写没有发现异常）</p>
+<p>2.查看mysql的连接情况：</p>
+<p>netstat -n|grep 3306|awk ‘{print $5}’|awk -F’:’ ‘{print $1}’|sort|uniq -c |sort -nk 1 -r</p>
+<p>发现简历管理的连接数较大，回滚一台简历管理，发现其连接数很少，到这里基本上已经确认是昨天上线简历管理的问题。全部回滚，数据库负载恢复正常</p>
+<p>3.数据库主库不可连接，主站程序没有重链机制，重启主站</p>
+<p>推断原因：<br>可能是有大量的读或写操作导致，mysql负载高</p>
+<p>查写操作：</p>
+<blockquote>
+<p>mysqlbinlog mysql-bin.000231|grep -i “update”|awk ‘{print $2}’|sort|uniq -c |sort -nk1 -r</p>
+<p>mysqlbinlog mysql-bin.000231|grep -i “insert”|awk ‘{print $2}’|sort|uniq -c |sort -nk1 -r</p>
+</blockquote>
+<p>写操作正常</p>
+<p>查读操作：</p>
+<p>/usr/sbin/tcpdump -i eth0 -s 0 -l -w - dst port 3306 and host 10.6.20.61|strings|egrep -i ‘SELECT|UPDATE|DELETE|INSERT|SET|COMMIT|ROLLBACK|CREATE|DROP|ALTER|CALL’|grep “‘2014-01-01 00:00:00’ AND t.createTime &lt; ‘2015-01-01 00:00:00’”</p>
+<p>发现简历管理有很多读从库的操作，因为有大量的读操作导致主库负载高，影响主站业务</p>
+<p>需要加强的知识：tcpdump抓包</p>
+<p>解决方法：<br>研发从程序段控制，service层控制读写分离</p>
+<p>监控需做：<br>mysql的tcp连接监控，基于端口对应的每一个ip</p>
 
   </article>
+  <div class="random-toc-area">
+  <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">Show TOC</button>
+  <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">Hide TOC</button>
+  <div class="random-toc">
+    <h2>Table of Content</h2>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#老东家故障记录分析"><span class="toc-text">老东家故障记录分析</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#故障跟踪"><span class="toc-text">故障跟踪</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#上线故障："><span class="toc-text">上线故障：</span></a></li></ol></li></ol></li></ol>
+  </div>
+</div>
 
+  
+<nav id="pagination">
+  
+
+  
+
+  
+    <a href="/2017/04/22/摔跤吧爸爸/" class="next">Next post 摔跤吧！爸爸 &rarr;</a>
+  
+</nav>
+
+  <!-- JiaThis Button BEGIN -->
+
+<!-- JiaThis Button END -->
+
+
+      
+      <div class="ds-thread" data-thread-key="2017/04/22/一次老东家的故障报告/" data-title="一次老东家的故障报告" data-url="http://successfuljian.github.io/2017/04/22/一次老东家的故障报告/"></div>
       
       
       
@@ -298,6 +197,18 @@
 </div>
 
 </div>
+
+  <script type="text/javascript">
+var duoshuoQuery = {short_name:"successfuljian"};
+(function() {
+  var ds = document.createElement('script');
+  ds.type = 'text/javascript';ds.async = true;
+  ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+  ds.charset = 'UTF-8';
+  (document.getElementsByTagName('head')[0] 
+   || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
 
 
 
@@ -399,6 +310,8 @@ var unsplashConfig = {"gravity":"north"};
 var turnoffBackgroundImage = false;
 
 
+
+  turnoffBackgroundImage = true;
 
 
 var backgroundColor = "34495E";
