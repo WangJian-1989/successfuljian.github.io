@@ -16,11 +16,9 @@
   
   
   
-    <meta name="description" content="最近在整理有道笔记的时候发现很有意思的东西,还是原来在老东家时候发生的故障，当时记载的故障报告。在这里拿出来与大家分享一下。
-老东家故障记录分析故障跟踪上线故障：2015-01-21
-上线功能：简历管理–老东家一年故障影响：主库负载达到40左右（1，5,15min），用户反映页面超时，不能修改页面上线时间：1.20号23:30上线的故障时间：1.21号9:10—-1.21号9:48，运维童鞋...">
+    <meta name="description" content="我的父亲是个文艺老头，堪称广场舞一哥~！因为每天他都要带着音响在大广场带着一群老头老太太跳舞….美其名曰：强身健体！为此也是乐此不彼。要说起来可能我的些许文艺细胞也是继承了我们家老头。不过要让我最佩服老头的就是他能写一手帅气的钢笔字，以至于亲戚家结婚都让我家老头帮忙写礼账….还记得小时候考完试班主任总要求家长在卷子上签字,老师每每看到这手钢笔字都要说上一句，你爸的字写的真不错啊…以至于这手钢...">
   
-  <title>一次老东家的故障报告 [ KEEP CLAM AND CARRY ON ]</title>
+  <title>父亲 [ KEEP CLAM AND CARRY ON ]</title>
   
   
     <link rel="shortcut icon" href="/favicon.ico">
@@ -39,22 +37,13 @@
 <body>
 <div class="side-navigate hide-area">
   
-    <div class="item prev">
-      <a href="/2017/05/19/父亲/">
-        <div class="item-icon"></div>
-      </a>
-      <div class="item-title">
-        父亲
-      </div>
-    </div>
-  
   
     <div class="item next">
-      <a href="/2017/04/22/摔跤吧爸爸/">
+      <a href="/2017/04/22/一次老东家的故障报告/">
         <div class="item-icon"></div>
       </a>
       <div class="item-title">
-        摔跤吧！爸爸
+        一次老东家的故障报告
       </div>
     </div>
   
@@ -129,37 +118,23 @@
       
       
   <article id="post">
-    <h1>一次老东家的故障报告</h1>
+    <h1>父亲</h1>
     <p class="page-title-sub">
-      <span id = "post-title-date">Created at 2017-04-22</span>
+      <span id = "post-title-date">Created at 2017-05-19</span>
       
-        <span id = "post-title-updated">Updated at 2017-04-22</span>
+        <span id = "post-title-updated">Updated at 2017-05-19</span>
       
       
       
     </p>
     
-    <p>最近在整理有道笔记的时候发现很有意思的东西,还是原来在老东家时候发生的故障，当时记载的故障报告。在这里拿出来与大家分享一下。</p>
-<h1 id="老东家故障记录分析"><a href="#老东家故障记录分析" class="headerlink" title="老东家故障记录分析"></a>老东家故障记录分析</h1><h2 id="故障跟踪"><a href="#故障跟踪" class="headerlink" title="故障跟踪"></a>故障跟踪</h2><h3 id="上线故障："><a href="#上线故障：" class="headerlink" title="上线故障："></a>上线故障：</h3><p>2015-01-21</p>
-<p>上线功能：简历管理–老东家一年<br>故障影响：主库负载达到40左右（1，5,15min），用户反映页面超时，不能修改页面<br>上线时间：1.20号23:30上线的<br>故障时间：1.21号9:10—-1.21号9:48，运维童鞋在去公司的路上</p>
-<p>故障排查：<br>1.查看zabbix mysqlio，insert和select语句操作（读写没有发现异常）</p>
-<p>2.查看mysql的连接情况：</p>
-<p>netstat -n|grep 3306|awk ‘{print $5}’|awk -F’:’ ‘{print $1}’|sort|uniq -c |sort -nk 1 -r</p>
-<p>发现简历管理的连接数较大，回滚一台简历管理，发现其连接数很少，到这里基本上已经确认是昨天上线简历管理的问题。全部回滚，数据库负载恢复正常</p>
-<p>3.数据库主库不可连接，主站程序没有重链机制，重启主站</p>
-<p>推断原因：<br>可能是有大量的读或写操作导致，mysql负载高</p>
-<p>查写操作：</p>
-<blockquote>
-<p>mysqlbinlog mysql-bin.000231|grep -i “update”|awk ‘{print $2}’|sort|uniq -c |sort -nk1 -r</p>
-<p>mysqlbinlog mysql-bin.000231|grep -i “insert”|awk ‘{print $2}’|sort|uniq -c |sort -nk1 -r</p>
-</blockquote>
-<p>写操作正常</p>
-<p>查读操作：</p>
-<p>/usr/sbin/tcpdump -i eth0 -s 0 -l -w - dst port 3306 and host 10.6.20.61|strings|egrep -i ‘SELECT|UPDATE|DELETE|INSERT|SET|COMMIT|ROLLBACK|CREATE|DROP|ALTER|CALL’|grep “‘2014-01-01 00:00:00’ AND t.createTime &lt; ‘2015-01-01 00:00:00’”</p>
-<p>发现简历管理有很多读从库的操作，因为有大量的读操作导致主库负载高，影响主站业务</p>
-<p>需要加强的知识：tcpdump抓包</p>
-<p>解决方法：<br>研发从程序段控制，service层控制读写分离</p>
-<p>监控需做：<br>mysql的tcp连接监控，基于端口对应的每一个ip</p>
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=26090100&auto=1&height=66"></iframe>
+
+<p>我的父亲是个文艺老头，堪称广场舞一哥~！因为每天他都要带着音响在大广场带着一群老头老太太跳舞….美其名曰：强身健体！为此也是乐此不彼。要说起来可能我的些许文艺细胞也是继承了我们家老头。不过要让我最佩服老头的就是他能写一手帅气的钢笔字，以至于亲戚家结婚都让我家老头帮忙写礼账….还记得小时候考完试班主任总要求家长在卷子上签字,老师每每看到这手钢笔字都要说上一句，你爸的字写的真不错啊…以至于这手钢笔字是我至今都所不能及的。</p>
+<p>我的父亲在我的童年里是个严厉的人，原因可能你们都懂…在他们那一辈人眼里，棍棒底下出孝子的概念我是到现在都不能认同的。小的时候也比较淘，小学里就喜欢玩游戏机。这里要简单介绍一下(那个时候叫游艺厅，全是大型绕杆子…kof97,98  三国战纪之类的 那时候要是被老师在游艺厅逮到，真的是皮开肉绽啊，把家长叫来，就是一顿踢，爸爸打完，妈妈打，简直就是花样双人吊打….)。为此，我买通了游艺厅老板，让他站在门口，看到我爸要是朝这个方向走来就高声呼喊我的名字，让我从后门安全撤退…可是有一次我衣服刮倒了门上，死活也拽不开，还记得那次是抓了个正着，场面请脑补… 哈哈，后来我就上了初中，谁还去游艺厅啊，low! 那个时候我开始去网吧了，红警、半条命、大菠萝、帝国时代、三国群英传、仙剑奇侠传….想想这些陪伴了我整个初中时代的游戏就想哭，整天都在跟老头斗智斗勇骗点网费中渡过。有一次，找我妈要钱买资料费，也找我爸要了…后来俩人吃饭的时候问你们资料怎么这么贵啊,我就穿帮了!那次挨打把我爸的拖鞋底子都打断了…后来他们决定把我送到寄宿学校！简直丧心病狂….于是本宝宝就开始了为期1年的苦逼初中寄宿生活，惨不忍睹不予详述。时至今日，老头说起来这事，我还气的牙痒痒!不过，幸亏我机智的考到了离家不远的高中….说起高中那简直就是魔兽编年血泪史啊，剧情跌宕起伏，感动整个艾泽拉斯大陆，现在想想当年为了玩魔兽我也是真够丧心病狂啊….</p>
+<p>听妈妈说爸爸当年因为家里穷把前途都耽误了,有二次上大学的机会都失之交臂，听完之后甚为惋惜。以至于，每次过年回家的饭桌上总是要被老头忆苦思甜一番，想当年羊肉1毛2一斤我一个月就挣18块钱工资…bala bala 说的起劲儿了还滋啦一口小酒儿。虽然我已经听的都能背下来了，但是我还是能听的十分起劲儿~ 原因就是老头爱说，我就爱听！</p>
+<p>以前你经常对我说前三十年看父敬子，后三十年看子敬父。可能那时候我还根本理解不了这话的深层次含义吧，头三十年我站在你的肩膀上你使我强大，因为你的鼓舞、你的支持，我才能够冒着暴雨破浪前行，因为你的肩膀依靠，我才能茁壮成长。如今我们哥俩已经长大了，你们已经慢慢老去，我会牢牢的抓紧你和妈妈的手，为你们撑起整个家！</p>
+<p>老头今年马上要过66岁生日了，我从来没和他说过我爱你爸爸这句话。可能中国人的思维就是要含蓄而内敛…有些话可能当面说不出口。我理解爸爸一辈子的不容易，为了我们默默的付出着，用你已经弯下的背托起了一片天！愿你健康长寿，吃嘛嘛香，身体倍棒。爸，我爱你！</p>
 
   </article>
   <div class="random-toc-area">
@@ -167,20 +142,18 @@
   <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">Hide TOC</button>
   <div class="random-toc">
     <h2>Table of Content</h2>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#老东家故障记录分析"><span class="toc-text">老东家故障记录分析</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#故障跟踪"><span class="toc-text">故障跟踪</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#上线故障："><span class="toc-text">上线故障：</span></a></li></ol></li></ol></li></ol>
+    
   </div>
 </div>
 
   
 <nav id="pagination">
   
-    <a href="/2017/05/19/父亲/" class="prev">&larr; Prev post 父亲</a>
-  
 
   
 
   
-    <a href="/2017/04/22/摔跤吧爸爸/" class="next">Next post 摔跤吧！爸爸 &rarr;</a>
+    <a href="/2017/04/22/一次老东家的故障报告/" class="next">Next post 一次老东家的故障报告 &rarr;</a>
   
 </nav>
 
@@ -190,7 +163,7 @@
 
 
       
-      <div class="ds-thread" data-thread-key="2017/04/22/一次老东家的故障报告/" data-title="一次老东家的故障报告" data-url="http://successfuljian.github.io/2017/04/22/一次老东家的故障报告/"></div>
+      <div class="ds-thread" data-thread-key="2017/05/19/父亲/" data-title="父亲" data-url="http://successfuljian.github.io/2017/05/19/父亲/"></div>
       
       
       
